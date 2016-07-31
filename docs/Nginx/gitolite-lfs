@@ -1,0 +1,83 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          gitolite-lfs
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       gitolite-lfs for nginx.
+### END INIT INFO
+
+# === config ===
+# File path.
+fcgiwrap="/usr/sbin/fcgiwrap"
+# PID file path.
+pid="/run/git.pid"
+# Socket file path.
+sock="/run/git.sock"
+# Number of process.
+proc=3
+# Gitolite user.
+git_user="git"
+# nginx user
+ngx_user="www-data"
+
+# Advanced.
+kill_delay=1
+# ==============
+
+function start() {
+  if [ -f ${pid} ];then
+    return 1
+  fi
+  spawn-fcgi -u ${git_user} -g ${git_user} -U ${ngx_user} -G ${ngx_user} -F ${proc} -P ${pid} -s ${sock} -- ${fcgiwrap} -f > /dev/null 2>&1
+}
+
+function stop() {
+  if [ ! -f ${pid} ];then
+    return 1
+  fi
+  # Termination.
+  kill -SIGTERM `cat ${pid}`
+  # Delay.
+  sleep ${kill_delay}
+  # Forced termination.
+  kill -0 `cat ${pid}` > /dev/null 2>&1
+  if [ $? = 0 ]; then
+    kill -SIGKILL `cat ${pid}`
+  fi
+  rm ${pid}
+}
+
+case "$1" in
+  start)
+    echo -n $"Starting gitolite-lfs: "
+    start
+    echo
+    ;;
+  stop)
+    echo -n $"Stopping gitolite-lfs: "
+    stop
+    echo
+    ;;
+  restart|try-restart)
+    echo -n $"Restarting gitolite-lfs: "
+    if [ -f ${pid} ];then
+      stop
+      start
+    elif [ "$1" = "restart" ];then
+      start
+    fi
+    echo
+    ;;
+  reload|force-reload)
+    echo -n $"Reloading gitolite-lfs: "
+    stop
+    start
+    echo
+    ;;
+  *)
+    echo "Arguments available: {start|stop|restart}"
+    ;;
+esac
+exit 0

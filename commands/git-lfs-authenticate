@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use JSON; 
+
+use lib $ENV{GL_LIBDIR};
+use Gitolite::Easy;
+use Gitolite::Rc;
+
+$ENV{GL_USER} or _die "Who are you?";
+$rc{LFS_URL} or _die "LFS_URL is not set to .gitolite.rc";
+
+if( $#ARGV == 0 ) {
+	_die "Invalid argument.";
+}
+
+my $repo = $ARGV[0]; 
+my $operation = $ARGV[1]; 
+
+# foo.git -> foo
+$repo =~ s/\.git$//g;
+
+if($operation eq "upload") {
+	if(!can_write($repo)) {
+		_die "You don't have write permission!!(or repo not exist.)";
+	}
+} elsif ( $operation eq "download" ) {
+	if(!can_read($repo)) {
+		_die "You don't have read permission!!(or repo not exist.)";
+	}
+} else {
+	_die "Invalid operation.";
+}
+
+print encode_json({href => "$rc{LFS_URL}/${repo}.git/info/lfs"});
