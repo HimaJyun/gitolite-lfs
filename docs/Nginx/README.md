@@ -9,11 +9,9 @@ If it is possible it is recommended that you use the *Apache*.
 1. Install *spawn-fcgi* and *fcgiwrap*  
    `sudo apt-get install spawn-fcgi fcgiwrap`
 1. Get init script.
-   ```
-   cd /etc/init.d
-   sudo curl -O https://raw.githubusercontent.com/HimaJyun/gitolite-lfs/docs/Nginx/gitolite-lfs
-   sudo chmod +x gitolite-lfs
-   ```
+   `cd /etc/init.d;sudo curl -O https://raw.githubusercontent.com/HimaJyun/gitolite-lfs/docs/Nginx/gitolite-lfs`
+1. Add permission.  
+   `sudo chmod +x /etc/init.d/gitolite-lfs`
 1. Open and settings.  
    `sudo editor /etc/init.d/gitolite-lfs`
 1. Add a service.  
