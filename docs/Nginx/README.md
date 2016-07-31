@@ -8,7 +8,7 @@ If it is possible it is recommended that you use the *Apache*.
 ## CGI setup.
 1. Install *spawn-fcgi* and *fcgiwrap*  
    `sudo apt-get install spawn-fcgi fcgiwrap`
-1. Get init script.
+1. Get init script.  
    `cd /etc/init.d;sudo curl -O https://raw.githubusercontent.com/HimaJyun/gitolite-lfs/docs/Nginx/gitolite-lfs`
 1. Add permission.  
    `sudo chmod +x /etc/init.d/gitolite-lfs`
