@@ -10,11 +10,11 @@ Assumption
 
 1. Install the Gitolite.(This is not described here.)
 1. Clone this project.  
-   `git clone https://github.com/HimaJyun/gitolite-lfs`
+`git clone https://github.com/HimaJyun/gitolite-lfs`
 1. Add permission.  
-   `sudo chmod +x -R gitolite-lfs/src/`
+`sudo chmod +x -R gitolite-lfs/src/`
 1. Move the src/*  
-   `sudo mv gitolite-lfs/src/* /var/www/git/`
+`sudo mv gitolite-lfs/src/* /var/www/git/`
 1. Please set.
 
 ### Settings.
@@ -57,29 +57,30 @@ Nginx -> docs/Nginx/README.md
 
 ### Add the SSH command.
 1. Open .gitolite.rc  
-   `sudo editor /var/git/.gitolite.rc`
+`sudo editor /var/git/.gitolite.rc`
 1. Add [LFS_URL]  
-   `LFS_URL => "http://example.com/",`
+`LFS_URL => "http://example.com/",`
 1. Uncomment [LOCAL_CODE]  
-   `LOCAL_CODE => "$rc{GL_ADMIN_BASE}/local",`
+`LOCAL_CODE => "$rc{GL_ADMIN_BASE}/local",`
 1. Add the [git-lfs-authenticate] to [ENABLE]  
-   ```perl
-   ENABLE => [
-	   'git-lfs-authenticate',
-   ]
-   ```
-In your PC
+```perl
+ENABLE => [
+  'git-lfs-authenticate',
+]
+```
+In your PC  
+
 1. Clone the gitolite-admin repo.  
-   `git clone ssh://example.com/gitolite-admin.git;cd gitolite-admin`
+`git clone ssh://example.com/gitolite-admin.git;cd gitolite-admin`
 1. Create local/commands  
-   `mkdir -p local/commands`
+`mkdir -p local/commands`
 1. Place the git-lfs-authenticate  
-   `curl -o local/commands/git-lfs-authenticate https://raw.githubusercontent.com/HimaJyun/gitolite-lfs/master/commands/git-lfs-authenticate`
+`curl -o local/commands/git-lfs-authenticate https://raw.githubusercontent.com/HimaJyun/gitolite-lfs/master/commands/git-lfs-authenticate`
 1. Commit and push  
-   ```
-   git add local/commands/git-lfs-authenticate
-   git config core.filemode false
-   git update-index --add --chmod=+x local/commands/git-lfs-authenticate
-   git commit -am "Add git-lfs-authenticate command."
-   git push origin master
-   ```
+```
+git add local/commands/git-lfs-authenticate
+git config core.filemode false
+git update-index --add --chmod=+x local/commands/git-lfs-authenticate
+git commit -am "Add git-lfs-authenticate command."
+git push origin master
+```
