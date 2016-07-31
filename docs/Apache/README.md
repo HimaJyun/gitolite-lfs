@@ -5,18 +5,16 @@ gitolite-lfs (and Gitolite with SmartHTTP) configuration for Apache
 1. Install suEXEC  
    `sudo apt-get install apache2-suexec-custom`
 1. Adjust the Permission.
-   ```bash
-   find /var/www/git/ | sudo xargs chown git:git
-   find /var/www/git/ | sudo xargs chmod 0700
-   # for .htpasswd
-   sudo chmod 0755 /var/www/git/
-   sudo chmod 0644 /var/www/git/.htpasswd
-   ```
-1. Enable module
-   ```
-   sudo a2enmod cgi
-   sudo a2enmod suexec
-   ```
+```bash
+find /var/www/git/ | sudo xargs chown git:git
+find /var/www/git/ | sudo xargs chmod 0700
+# for .htpasswd
+sudo chmod 0755 /var/www/git/
+sudo chmod 0644 /var/www/git/.htpasswd
+```
+
+1. Enable module  
+   `sudo a2enmod suexec`
 1. Apache setup.  
    `sudo editor /etc/apache2/sites-available/git.conf`  
    Please see the example.conf......
