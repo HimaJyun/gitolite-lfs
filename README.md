@@ -1,6 +1,9 @@
 # gitolite-lfs
 [git-lfs](https://git-lfs.github.com/) implementation for [Gitolite](https://github.com/sitaramc/gitolite).  
 
+I currently do not use this software and I do not update it...:cry:  
+Please consider using other software if possible.([GitBucket](https://github.com/gitbucket/gitbucket)/[Gogs](https://gogs.io/)\([Gitea](https://gitea.io/en-US/)\)/[GitLab](https://about.gitlab.com/))
+
 ## Installation
 Assumption
 * Install to /var/www/git
